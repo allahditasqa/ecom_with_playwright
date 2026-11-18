@@ -1,0 +1,43 @@
+{
+  "name": "ecom-with-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright + TypeScript test automation framework for the Practice Software Testing (Toolshop) e-commerce site",
+  "scripts": {
+    "test": "playwright test --project=chromium",
+    "test:smoke": "playwright test --project=chromium --grep @smoke",
+    "test:regression": "playwright test --project=chromium --grep @regression",
+    "test:ui": "playwright test --project=chromium --grep @ui",
+    "test:api": "playwright test --project=chromium --grep @api",
+    "test:auth": "playwright test --project=chromium tests/ui/auth.spec.ts",
+    "test:products": "playwright test --project=chromium tests/ui/products.spec.ts",
+    "test:cart": "playwright test --project=chromium tests/ui/cart.spec.ts",
+    "test:checkout": "playwright test --project=chromium tests/ui/checkout.spec.ts",
+    "test:contact": "playwright test --project=chromium tests/ui/contactAndNavigation.spec.ts",
+    "test:subscription": "playwright test --project=chromium tests/ui/subscription.spec.ts",
+    "test:defects": "playwright test --project=chromium --grep @defect",
+    "test:headed": "playwright test --project=chromium --headed --workers=1",
+    "test:firefox": "cross-env ALL_BROWSERS=1 playwright test --project=firefox",
+    "test:webkit": "cross-env ALL_BROWSERS=1 playwright test --project=webkit",
+    "test:all-browsers": "cross-env ALL_BROWSERS=1 playwright test",
+    "report": "playwright show-report",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm run lint && npm run format:check"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.6",
+    "cross-env": "^10.1.0",
+    "dotenv": "^18.0.10",
+    "eslint": "^10.15.0",
+    "eslint-plugin-playwright": "^2.12.2",
+    "prettier": "^3.10.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.73.0"
+  }
+}
