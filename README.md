@@ -128,6 +128,24 @@ The 5 known-defect tests count as _passed_ because they are marked `test.fail()`
 
 **Honest history:** the first full runs (before the resilience layer) produced 13, then 2, 1 and 5 failures. Causes were, in order: wrong assumptions in my tests (search matches categories, availability text structure, invoice shows first + last name, `display:none` alerts), and the site's own "heavy load (queue full)" placeholder / dropped connections under parallel load. Test bugs were fixed in the tests; the infrastructure noise is handled in `src/utils/resilientNavigation.ts` and `ApiClient` (retries, documented above). On a very busy day the public site can still be slow or unavailable - that is outside the framework's control; CI therefore uses 2 retries.
 
+## Module-wise HTML reports (every run kept)
+
+Besides Playwright's own `playwright-report/`, a custom reporter ([reporters/moduleReporter.ts](reporters/moduleReporter.ts)) writes a readable report **per module and per run** into `reports/` (git-ignored):
+
+```
+reports/
+├── index.html                      # history: newest run first, grouped by date-time, module-wise
+├── history.json                    # append-only run history
+├── auth/auth test 18-11-2026_15-20.html     # executed test cases, status, time, screenshot of every test
+├── auth/auth test 18-11-2026_15-20.csv      # same test cases as CSV
+├── cart/ checkout/ products/ ...
+```
+
+- One report per module (`auth`, `cart`, `checkout`, `contact`, `products`, `subscription`, `defects`, `api`) with total / passed / failed / skipped, duration per test and a screenshot for each UI test (click to enlarge).
+- **Never overwritten:** the date and time are part of the file name; a second run in the same minute gets a seconds suffix. `index.html` is rebuilt from `history.json`, so old runs stay listed.
+- Known-defect tests (`test.fail()`) are shown as passed with the note "known defect - bug still present, as expected".
+- Open `reports/index.html` after any run (`npm test`, `npm run test:cart`, ...).
+
 ## Roadmap
 
 - Visual regression for the home page and product grid.

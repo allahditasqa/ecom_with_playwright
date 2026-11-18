@@ -29,12 +29,16 @@ export default defineConfig({
   workers: env.workers,
   timeout: 60_000,
   expect: { timeout: 10_000 },
-  reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
+  reporter: [
+    ['list'],
+    ['html', { open: 'never', outputFolder: 'playwright-report' }],
+    ['./reporters/moduleReporter.ts'], // module-wise, timestamped, never-overwritten reports in reports/
+  ],
   use: {
     baseURL: env.baseUrl,
     actionTimeout: 15_000,
     navigationTimeout: 30_000,
-    screenshot: 'only-on-failure',
+    screenshot: 'on',
     video: 'retain-on-failure',
     trace: 'retain-on-failure',
   },
