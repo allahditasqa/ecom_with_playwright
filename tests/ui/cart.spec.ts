@@ -25,7 +25,7 @@ test.describe('Cart', { tag: ['@ui', '@regression'] }, () => {
   }) => {
     await productDetailPage.open();
     await productDetailPage.setQuantity(4);
-    await productDetailPage.addToCartButton.click();
+    await productDetailPage.addToCart();
     await productDetailPage.cartModal.viewCart.click();
 
     const [line] = await cartPage.lines();

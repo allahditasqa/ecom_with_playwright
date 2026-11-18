@@ -74,13 +74,13 @@ test.describe('Contact us & navigation', { tag: ['@ui', '@regression'] }, () => 
     await expect(homePage.sliderHeading).toBeInViewport();
   });
 
-  for (const [label, link, url] of [
-    ['Products', 'products', /\/products/],
-    ['Cart', 'cart', /\/view_cart/],
-    ['Signup / Login', 'signupLogin', /\/login/],
-    ['Contact us', 'contactUs', /\/contact_us/],
+  for (const [n, label, link, url] of [
+    [1, 'Products', 'products', /\/products/],
+    [2, 'Cart', 'cart', /\/view_cart/],
+    [3, 'Signup / Login', 'signupLogin', /\/login/],
+    [4, 'Contact us', 'contactUs', /\/contact_us/],
   ] as const) {
-    test(`TC26b - header link "${label}" navigates correctly`, async ({ homePage, page }) => {
+    test(`TC26.${n} - header link "${label}" navigates correctly`, async ({ homePage, page }) => {
       await homePage.open();
       await homePage.header[link].click();
       await expect(page).toHaveURL(url);

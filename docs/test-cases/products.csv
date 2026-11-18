@@ -1,0 +1,29 @@
+﻿"ID","Module","Feature","Type","Title","Priority","Preconditions","Test Data","Steps","Expected Result","Automation","Automation Script","Smoke","Regression","Last Updated"
+"TC08","Products","Products","Positive","all products list and product detail page","P0 - Critical","Browser open, user not logged in, empty cart.","First product of the catalogue.","1. Open /products and verify ""All Products"" and the product list.
+2. Click ""View Product"" of the first product.
+3. Verify name, category, price, availability, condition and brand.","The product detail page shows all product details (price ""Rs. ..."", In Stock, New).","Automated","tests/ui/products.spec.ts","Yes","Yes","18-11-2026"
+"TC08.1","Products","Products","Positive","product 1 detail shows Blue Top / Polo","P2 - Medium","Browser open, user not logged in, empty cart.","Product 1: Blue Top, brand Polo.","1. Open /product_details/<id>.
+2. Verify product name and brand.","Name ""Blue Top"" and brand ""Polo"" are shown.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC08.2","Products","Products","Positive","product 2 detail shows Men Tshirt / H&M","P2 - Medium","Browser open, user not logged in, empty cart.","Product 2: Men Tshirt, brand H&M.","1. Open /product_details/<id>.
+2. Verify product name and brand.","Name ""Men Tshirt"" and brand ""H&M"" are shown.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC08.3","Products","Products","Positive","product 3 detail shows Sleeveless Dress / Madame","P2 - Medium","Browser open, user not logged in, empty cart.","Product 3: Sleeveless Dress, brand Madame.","1. Open /product_details/<id>.
+2. Verify product name and brand.","Name ""Sleeveless Dress"" and brand ""Madame"" are shown.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC09","Products","Search","Positive","search for a product","P1 - High","Browser open, user not logged in, empty cart.","Search term ""top"".","1. Open /products.
+2. Enter ""top"" in the search box and click the search button.","""Searched Products"" is shown with matching products, including ""Blue Top"" and ""Winter Top"".","Automated","tests/ui/products.spec.ts","Yes","Yes","18-11-2026"
+"TC09b","Products","Search","Negative","search with no match shows no products","P2 - Medium","Browser open, user not logged in, empty cart.","Term that matches nothing.","1. Open /products.
+2. Search for ""zzzz-no-such-product"".","""Searched Products"" is shown with no product cards.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC09c","Products","Search","Positive","search is case-insensitive","P3 - Low","Browser open, user not logged in, empty cart.","Upper-case term.","1. Open /products.
+2. Search for ""BLUE TOP"" (upper case).","The product ""Blue Top"" is found: search is case-insensitive.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC18","Products","Categories","Positive","view category products","P1 - High","Browser open, user not logged in, empty cart.","Women > Dress, Men > Tshirts.","1. Open /products.
+2. Expand ""Women"" and click ""Dress"".
+3. Expand ""Men"" and click ""Tshirts"".","Titles ""Women - Dress Products"" and ""Men - Tshirts Products"" are shown, each with products.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC19","Products","Brands","Positive","view brand products","P1 - High","Browser open, user not logged in, empty cart.","Brands Polo and H&M.","1. Open /products and verify the Brands panel.
+2. Click brand ""Polo"".
+3. Click brand ""H&M"".","Titles ""Brand - Polo Products"" and ""Brand - H&M Products"" are shown, each with products.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC21","Products","Reviews","Positive","add a review on a product","P2 - Medium","Browser open, user not logged in, empty cart.","Name ""QA Tester"", e-mail qa.tester@example.com, review text.","1. Open a product detail page.
+2. Verify ""Write Your Review"".
+3. Enter name, e-mail and review text, click ""Submit"".","""Thank you for your review."" is shown.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC21b","Products","Reviews","Validation","review with an invalid e-mail is blocked","P3 - Low","Browser open, user not logged in, empty cart.","Malformed e-mail.","1. Open a product detail page.
+2. Submit a review with the e-mail ""bad-email"".","The review is not accepted; no success message appears.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"
+"TC21c","Products","Products","Positive","the products page lists as many products as the API","P2 - Medium","Browser open, user not logged in, empty cart.","-","1. Get the product list from GET /api/productsList.
+2. Open /products and count the product cards.","The number of cards in the UI equals the number of products returned by the API.","Automated","tests/ui/products.spec.ts","No","Yes","18-11-2026"

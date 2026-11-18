@@ -48,6 +48,16 @@ export class ProductDetailPage extends BasePage {
     await this.quantity.fill(String(qty));
   }
 
+  /**
+   * Clicks "Add to cart" once the page's scripts are loaded (an earlier click sends nothing) and
+   * waits for the confirmation modal. The click is never repeated: a slow request would add twice.
+   */
+  async addToCart(): Promise<void> {
+    await this.page.waitForLoadState('load');
+    await this.addToCartButton.click();
+    await this.cartModal.message.waitFor({ timeout: 25_000 });
+  }
+
   async writeReview(name: string, email: string, text: string): Promise<void> {
     await this.reviewName.fill(name);
     await this.reviewEmail.fill(email);

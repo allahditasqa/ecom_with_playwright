@@ -27,8 +27,8 @@ export default defineConfig({
   // Retries are only enabled on CI (the target is a shared public site and can hiccup).
   retries: isCI ? 2 : 0,
   workers: env.workers,
-  timeout: 60_000,
-  expect: { timeout: 10_000 },
+  timeout: 120_000,
+  expect: { timeout: 15_000 },
   reporter: [
     ['list'],
     ['html', { open: 'never', outputFolder: 'playwright-report' }],
@@ -36,8 +36,8 @@ export default defineConfig({
   ],
   use: {
     baseURL: env.baseUrl,
-    actionTimeout: 15_000,
-    navigationTimeout: 30_000,
+    actionTimeout: 30_000,
+    navigationTimeout: 45_000,
     screenshot: 'on',
     video: 'retain-on-failure',
     trace: 'retain-on-failure',

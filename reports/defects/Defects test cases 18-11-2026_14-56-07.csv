@@ -1,0 +1,10 @@
+﻿"Test Case ID","Module","Feature","Test Case Title","Priority","Test Type","Preconditions","Test Steps","Test Data","Expected Result","Automation Status","Automation Script","Execution Status","Actual Result","Duration (s)","Executed On","Environment","Remarks"
+"DEF-02","Defects","Contact us","contact form must not accept an empty name, subject and message","P3 - Low","Defect","Browser open, user not logged in, empty cart.","1. Open /contact_us.
+2. Enter only an e-mail; leave name, subject and message empty.
+3. Click ""Submit"" and accept the dialog.","Only e-mail filled.","CORRECT behaviour: the form should reject empty name/subject/message. Actual: it is accepted (known defect DEF-02, marked test.fail).","Automated","defects.spec.ts > UI - known defects","Pass","As expected (known defect reproduced)","18.2","2026-11-18 10:00:33","automationexercise.com / Chromium","known defect (test.fail) - bug still present, as expected"
+"DEF-03.1","Defects","Cart","quantity 0 must not be accepted into the cart","P1 - High","Defect","Browser open, user not logged in, empty cart.","1. Open /product_details/1.
+2. Set the quantity to 0 (or -3).
+3. Click ""Add to cart"" and open the cart.","Quantity 0.","CORRECT behaviour: quantities below 1 must be rejected. Actual: the line is added (known defect DEF-03, marked test.fail).","Automated","defects.spec.ts > UI - known defects","Pass","As expected (known defect reproduced)","22.1","2026-11-18 10:00:38","automationexercise.com / Chromium","known defect (test.fail) - bug still present, as expected"
+"DEF-03.2","Defects","Cart","quantity -3 must not be accepted into the cart","P1 - High","Defect","Browser open, user not logged in, empty cart.","1. Open /product_details/1.
+2. Set the quantity to 0 (or -3).
+3. Click ""Add to cart"" and open the cart.","Quantity -3.","CORRECT behaviour: quantities below 1 must be rejected. Actual: the line is added (known defect DEF-03, marked test.fail).","Automated","defects.spec.ts > UI - known defects","Pass","As expected (known defect reproduced)","22.4","2026-11-18 10:00:52","automationexercise.com / Chromium","known defect (test.fail) - bug still present, as expected"

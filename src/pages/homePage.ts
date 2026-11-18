@@ -27,7 +27,9 @@ export class HomePage extends BasePage {
     await this.recommended.scrollIntoViewIfNeeded();
     const item = this.recommended.locator('.carousel-inner .item.active .product-image-wrapper').first();
     const name = (await item.locator('.productinfo p').innerText()).trim();
+    await this.page.waitForLoadState('load'); // a click before the page scripts are attached sends nothing
     await item.locator('a.add-to-cart').first().click();
+    await this.cartModal.message.waitFor({ timeout: 25_000 });
     return name;
   }
 }

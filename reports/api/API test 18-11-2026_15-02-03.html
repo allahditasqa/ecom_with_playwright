@@ -1,0 +1,296 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API Test Report 18-11-2026 15:02:03</title><style>:root{--bg:#f6f7f9;--fg:#1c1f24;--card:#fff;--line:#dde1e6;--pass:#1a7f37;--fail:#cf222e;--skip:#8a6d00;--mute:#6b7380}
+@media(prefers-color-scheme:dark){:root{--bg:#14161a;--fg:#e6e8eb;--card:#1d2026;--line:#2e333b;--pass:#3fb950;--fail:#ff7b72;--skip:#d4a72c;--mute:#9aa3b0}}
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,Segoe UI,sans-serif}
+main{max-width:1100px;margin:auto}h1{margin:0 0 4px}h2{margin:28px 0 8px}.meta{color:var(--mute);font-size:13px}a{color:inherit}
+.sum{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.sum div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 16px}
+.sum b{font-size:22px;display:block}.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0}
+.card.pass{border-left-color:var(--pass)}.card.fail{border-left-color:var(--fail)}.card.skip{border-left-color:var(--skip)}
+.head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.badge{font-size:12px;text-transform:uppercase;padding:2px 8px;border-radius:99px;border:1px solid currentColor}
+.badge.pass{color:var(--pass)}.badge.fail{color:var(--fail)}.badge.skip{color:var(--skip)}
+pre{background:var(--bg);padding:10px;border-radius:6px;overflow:auto;white-space:pre-wrap;color:var(--fail)}
+.shots{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}figure{margin:0}img{max-width:300px;border:1px solid var(--line);border-radius:6px;cursor:zoom-in}
+img.big{max-width:100%;cursor:zoom-out}figcaption{font-size:12px;color:var(--mute)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line)}th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+.pass-t{color:var(--pass)}.fail-t{color:var(--fail)}.skip-t{color:var(--skip)}.note{color:var(--skip);font-size:13px}</style></head><body><main>
+<p class="meta"><a href="../index.html">&larr; All reports</a></p>
+<h1>API</h1>
+<div class="meta">Run: 18-11-2026 15:02:03 · test time 34s · overall: passed · click a screenshot to enlarge</div>
+<div class="sum"><div><b>23</b>total</div><div><b class="pass-t">23</b>passed</div><div><b class="fail-t">0</b>failed</div><div><b class="skip-t">0</b>skipped</div></div>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API1 - GET productsList returns all products</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 1.7s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Products · P0 - Critical · Positive</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send GET /api/productsList.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200; every product has id, name, price &quot;Rs. n&quot;, brand and category.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API1b - product ids are unique</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 1.5s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Products · P2 - Medium · Positive</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send GET /api/productsList and collect all product ids.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> All product ids are unique.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API2 - POST to productsList is not supported</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 0.8s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Products · P2 - Medium · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/productsList.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> responseCode 405, message &quot;This request method is not supported.&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API3 - GET brandsList returns all brands</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 0.4s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Brands · P1 - High · Positive</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send GET /api/brandsList.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200 and a list of brands that includes Polo and H&amp;M.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API4 - PUT to brandsList is not supported</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 0.4s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Brands · P2 - Medium · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send PUT /api/brandsList.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> responseCode 405.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API5 - POST searchProduct returns matching products</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 0.8s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Search · P1 - High · Positive</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/searchProduct with search_product=top.</li></ol>
+  <p class="meta"><b>Test data:</b> search_product = &quot;top&quot;</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200; every product matches &quot;top&quot; by name or category and &quot;Blue Top&quot; is included.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API5b - searchProduct with no match returns an empty list</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 0.6s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Search · P2 - Medium · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/searchProduct with a term that matches nothing.</li></ol>
+  <p class="meta"><b>Test data:</b> search_product = &quot;zzzz-no-such-product&quot;</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200 and an empty products list.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API6 - searchProduct without search_product parameter is a bad request</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 0.4s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Search · P2 - Medium · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/searchProduct without the search_product parameter.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> responseCode 400, message &quot;Bad request, search_product parameter is missing in POST request.&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API6b - search results are a subset of productsList</b>
+  <span class="meta">api.spec.ts › API - products &amp; brands · 2.4s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Search · P3 - Low · Positive</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Get all products, search &quot;dress&quot;, compare the ids.</li></ol>
+  <p class="meta"><b>Test data:</b> search_product = &quot;dress&quot;</p>
+  <p class="meta"><b>Expected result:</b> All search results are a subset of productsList.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API7 - verifyLogin with valid credentials</b>
+  <span class="meta">api.spec.ts › API - user accounts · 2.6s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P0 - Critical · Positive</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send POST /api/verifyLogin with the user e-mail and password.</li></ol>
+  <p class="meta"><b>Test data:</b> Valid credentials.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200, message &quot;User exists!&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API8 - verifyLogin without email is a bad request</b>
+  <span class="meta">api.spec.ts › API - user accounts · 0.9s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P2 - Medium · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/verifyLogin with only a password.</li></ol>
+  <p class="meta"><b>Test data:</b> Missing e-mail.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 400, message &quot;Bad request, email or password parameter is missing in POST request.&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API9 - DELETE to verifyLogin is not supported</b>
+  <span class="meta">api.spec.ts › API - user accounts · 1.3s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P3 - Low · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send DELETE /api/verifyLogin.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> responseCode 405, message &quot;This request method is not supported.&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API10 - verifyLogin with invalid credentials</b>
+  <span class="meta">api.spec.ts › API - user accounts · 3.1s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P1 - High · Negative</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send POST /api/verifyLogin with the correct e-mail and a wrong password.</li></ol>
+  <p class="meta"><b>Test data:</b> Invalid password.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 404, message &quot;User not found!&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API11 - createAccount registers a user</b>
+  <span class="meta">api.spec.ts › API - user accounts · 2.3s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P0 - Critical · Positive</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/createAccount with a full unique user.</li><li>Send POST /api/verifyLogin with the same credentials.</li></ol>
+  <p class="meta"><b>Test data:</b> Generated unique user.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 201 &quot;User created!&quot;; the login verification returns 200.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API11b - createAccount with an existing e-mail is rejected</b>
+  <span class="meta">api.spec.ts › API - user accounts · 1.4s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P1 - High · Negative</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send POST /api/createAccount with the e-mail of the existing user.</li></ol>
+  <p class="meta"><b>Test data:</b> Duplicate e-mail.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 400, message &quot;Email already exists!&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API11c - createAccount with missing fields is a bad request</b>
+  <span class="meta">api.spec.ts › API - user accounts · 0.7s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P2 - Medium · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/createAccount with only the name.</li></ol>
+  <p class="meta"><b>Test data:</b> Missing mandatory parameters.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 400 (bad request).</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API12 - deleteAccount removes the user</b>
+  <span class="meta">api.spec.ts › API - user accounts · 2.3s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P1 - High · Positive</summary>
+  <p class="meta"><b>Precondition:</b> A user created through the API.</p>
+  <ol class="meta"><li>Send DELETE /api/deleteAccount with e-mail and password.</li><li>Send POST /api/verifyLogin with the same credentials.</li></ol>
+  <p class="meta"><b>Test data:</b> Valid credentials.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200 &quot;Account deleted!&quot;; the following login returns 404.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API12b - deleteAccount with wrong password keeps the account</b>
+  <span class="meta">api.spec.ts › API - user accounts · 2.5s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P1 - High · Negative</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send DELETE /api/deleteAccount with a wrong password.</li><li>Verify the user can still log in.</li></ol>
+  <p class="meta"><b>Test data:</b> Wrong password.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 404 and the account is kept.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API13 - updateAccount changes the stored details</b>
+  <span class="meta">api.spec.ts › API - user accounts · 2.9s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P2 - Medium · Positive</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send PUT /api/updateAccount with a new city and company.</li><li>Send GET /api/getUserDetailByEmail.</li></ol>
+  <p class="meta"><b>Test data:</b> city = Karachi, company = Updated Co</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200 &quot;User updated!&quot;; the profile shows the new values.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API14 - getUserDetailByEmail returns the profile</b>
+  <span class="meta">api.spec.ts › API - user accounts · 1.6s · @api @regression @smoke</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P1 - High · Positive</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send GET /api/getUserDetailByEmail?email=&lt;user e-mail&gt;.</li></ol>
+  <p class="meta"><b>Test data:</b> Registered e-mail.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 200 and the profile (name, e-mail, first/last name, country) matches the registration.</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>API14b - getUserDetailByEmail for an unknown e-mail</b>
+  <span class="meta">api.spec.ts › API - user accounts · 0.6s · @api @regression</span></div>
+  
+  <details><summary class="meta">Test case: API - Account · P3 - Low · Negative</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send GET /api/getUserDetailByEmail with an unregistered e-mail.</li></ol>
+  <p class="meta"><b>Test data:</b> Unknown e-mail.</p>
+  <p class="meta"><b>Expected result:</b> responseCode 404, message &quot;Account not found with this email, try another email!&quot;</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>DEF-01 - getUserDetailByEmail must not return a profile without credentials</b>
+  <span class="meta">api.spec.ts › API - known defects · 2.5s · @api @defect</span></div>
+  <div class="note">known defect (test.fail) - bug still present, as expected</div>
+  <details><summary class="meta">Test case: API - Account · P0 - Critical · Security</summary>
+  <p class="meta"><b>Precondition:</b> A registered user exists (created through the API with a unique e-mail).</p>
+  <ol class="meta"><li>Send GET /api/getUserDetailByEmail for the user WITHOUT any authentication.</li></ol>
+  <p class="meta"><b>Test data:</b> Registered e-mail, no credentials.</p>
+  <p class="meta"><b>Expected result:</b> CORRECT behaviour: no profile data for anonymous callers. Actual: full profile (PII) is returned (known defect DEF-01, marked test.fail).</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+<section class="card pass">
+  <div class="head"><span class="badge pass">passed</span><b>DEF-04 - unsupported method should answer with HTTP 405</b>
+  <span class="meta">api.spec.ts › API - known defects · 0.6s · @api @defect</span></div>
+  <div class="note">known defect (test.fail) - bug still present, as expected</div>
+  <details><summary class="meta">Test case: API - General · P2 - Medium · Defect</summary>
+  <p class="meta"><b>Precondition:</b> API reachable.</p>
+  <ol class="meta"><li>Send POST /api/productsList (unsupported method) and read the HTTP status line and body.</li></ol>
+  <p class="meta"><b>Test data:</b> -</p>
+  <p class="meta"><b>Expected result:</b> CORRECT behaviour: HTTP 405 as well as responseCode 405. Actual: HTTP 200 (known defect DEF-04, marked test.fail).</p></details>
+  
+  <p class="meta">No screenshot (test was skipped)</p>
+</section>
+</main></body></html>

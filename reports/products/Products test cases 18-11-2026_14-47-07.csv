@@ -1,0 +1,29 @@
+﻿"Test Case ID","Module","Feature","Test Case Title","Priority","Test Type","Preconditions","Test Steps","Test Data","Expected Result","Automation Status","Automation Script","Execution Status","Actual Result","Duration (s)","Executed On","Environment","Remarks"
+"TC08","Products","Products","all products list and product detail page","P0 - Critical","Positive","Browser open, user not logged in, empty cart.","1. Open /products and verify ""All Products"" and the product list.
+2. Click ""View Product"" of the first product.
+3. Verify name, category, price, availability, condition and brand.","First product of the catalogue.","The product detail page shows all product details (price ""Rs. ..."", In Stock, New).","Automated","products.spec.ts > Products","Pass","As expected","3.7","2026-11-18 09:54:48","automationexercise.com / Chromium",""
+"TC08.1","Products","Products","product 1 detail shows Blue Top / Polo","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open /product_details/<id>.
+2. Verify product name and brand.","Product 1: Blue Top, brand Polo.","Name ""Blue Top"" and brand ""Polo"" are shown.","Automated","products.spec.ts > Products","Pass","As expected","1.8","2026-11-18 09:54:51","automationexercise.com / Chromium",""
+"TC08.2","Products","Products","product 2 detail shows Men Tshirt / H&M","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open /product_details/<id>.
+2. Verify product name and brand.","Product 2: Men Tshirt, brand H&M.","Name ""Men Tshirt"" and brand ""H&M"" are shown.","Automated","products.spec.ts > Products","Pass","As expected","2.0","2026-11-18 09:54:53","automationexercise.com / Chromium",""
+"TC08.3","Products","Products","product 3 detail shows Sleeveless Dress / Madame","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open /product_details/<id>.
+2. Verify product name and brand.","Product 3: Sleeveless Dress, brand Madame.","Name ""Sleeveless Dress"" and brand ""Madame"" are shown.","Automated","products.spec.ts > Products","Pass","As expected","1.8","2026-11-18 09:54:55","automationexercise.com / Chromium",""
+"TC09","Products","Search","search for a product","P1 - High","Positive","Browser open, user not logged in, empty cart.","1. Open /products.
+2. Enter ""top"" in the search box and click the search button.","Search term ""top"".","""Searched Products"" is shown with matching products, including ""Blue Top"" and ""Winter Top"".","Automated","products.spec.ts > Products","Pass","As expected","3.2","2026-11-18 09:54:57","automationexercise.com / Chromium",""
+"TC09b","Products","Search","search with no match shows no products","P2 - Medium","Negative","Browser open, user not logged in, empty cart.","1. Open /products.
+2. Search for ""zzzz-no-such-product"".","Term that matches nothing.","""Searched Products"" is shown with no product cards.","Automated","products.spec.ts > Products","Pass","As expected","2.9","2026-11-18 09:55:00","automationexercise.com / Chromium",""
+"TC09c","Products","Search","search is case-insensitive","P3 - Low","Positive","Browser open, user not logged in, empty cart.","1. Open /products.
+2. Search for ""BLUE TOP"" (upper case).","Upper-case term.","The product ""Blue Top"" is found: search is case-insensitive.","Automated","products.spec.ts > Products","Pass","As expected","2.8","2026-11-18 09:55:03","automationexercise.com / Chromium",""
+"TC18","Products","Categories","view category products","P1 - High","Positive","Browser open, user not logged in, empty cart.","1. Open /products.
+2. Expand ""Women"" and click ""Dress"".
+3. Expand ""Men"" and click ""Tshirts"".","Women > Dress, Men > Tshirts.","Titles ""Women - Dress Products"" and ""Men - Tshirts Products"" are shown, each with products.","Automated","products.spec.ts > Products","Pass","As expected","6.1","2026-11-18 09:55:06","automationexercise.com / Chromium",""
+"TC19","Products","Brands","view brand products","P1 - High","Positive","Browser open, user not logged in, empty cart.","1. Open /products and verify the Brands panel.
+2. Click brand ""Polo"".
+3. Click brand ""H&M"".","Brands Polo and H&M.","Titles ""Brand - Polo Products"" and ""Brand - H&M Products"" are shown, each with products.","Automated","products.spec.ts > Products","Pass","As expected","5.3","2026-11-18 09:55:07","automationexercise.com / Chromium",""
+"TC21","Products","Reviews","add a review on a product","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open a product detail page.
+2. Verify ""Write Your Review"".
+3. Enter name, e-mail and review text, click ""Submit"".","Name ""QA Tester"", e-mail qa.tester@example.com, review text.","""Thank you for your review."" is shown.","Automated","products.spec.ts > Products","Pass","As expected","2.1","2026-11-18 09:55:12","automationexercise.com / Chromium",""
+"TC21b","Products","Reviews","review with an invalid e-mail is blocked","P3 - Low","Validation","Browser open, user not logged in, empty cart.","1. Open a product detail page.
+2. Submit a review with the e-mail ""bad-email"".","Malformed e-mail.","The review is not accepted; no success message appears.","Automated","products.spec.ts > Products","Pass","As expected","2.9","2026-11-18 09:55:12","automationexercise.com / Chromium",""
+"TC21c","Products","Products","the products page lists as many products as the API","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Get the product list from GET /api/productsList.
+2. Open /products and count the product cards.","-","The number of cards in the UI equals the number of products returned by the API.","Automated","products.spec.ts > Products","Pass","As expected","3.0","2026-11-18 09:55:14","automationexercise.com / Chromium",""

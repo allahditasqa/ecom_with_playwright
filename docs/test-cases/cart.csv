@@ -1,0 +1,21 @@
+﻿"ID","Module","Feature","Type","Title","Priority","Preconditions","Test Data","Steps","Expected Result","Automation","Automation Script","Smoke","Regression","Last Updated"
+"TC12","Cart","Cart","Positive","add two products to the cart","P0 - Critical","Browser open, user not logged in, empty cart.","First two products of the catalogue.","1. Open /products.
+2. Hover the first product and click ""Add to cart""; click ""Continue Shopping"".
+3. Hover the second product and click ""Add to cart""; click ""View Cart"".","Both products are in the cart with the correct price, quantity 1 and total equal to the price.","Automated","tests/ui/cart.spec.ts","Yes","Yes","18-11-2026"
+"TC13","Cart","Cart","Positive","product quantity from the detail page is kept in the cart","P1 - High","Browser open, user not logged in, empty cart.","Product 1 (Rs. 500), quantity 4.","1. Open /product_details/1.
+2. Set quantity to 4 and click ""Add to cart"".
+3. Click ""View Cart"".","Cart shows quantity 4, price Rs. 500 and total Rs. 2000.","Automated","tests/ui/cart.spec.ts","No","Yes","18-11-2026"
+"TC13b","Cart","Cart","Positive","adding the same product twice increases the quantity","P2 - Medium","Browser open, user not logged in, empty cart.","Same product added twice.","1. Open /products.
+2. Add the first product twice (continue shopping in between).
+3. Open the cart.","One cart line with quantity 2.","Automated","tests/ui/cart.spec.ts","No","Yes","18-11-2026"
+"TC17","Cart","Cart","Positive","remove a product from the cart","P1 - High","Browser open, user not logged in, empty cart.","-","1. Add a product to the cart and open the cart.
+2. Click the delete (X) button of the product.","The product is removed and ""Cart is empty!"" is shown.","Automated","tests/ui/cart.spec.ts","Yes","Yes","18-11-2026"
+"TC17b","Cart","Cart","Negative","a fresh visitor has an empty cart","P3 - Low","Browser open, user not logged in, empty cart.","-","1. Open /view_cart as a fresh visitor.","""Cart is empty!"" is shown and there are no cart lines.","Automated","tests/ui/cart.spec.ts","No","Yes","18-11-2026"
+"TC20","Cart","Cart","Positive","search products and verify the cart after login","P1 - High","A registered user exists (created through the API with a unique e-mail).","Search term ""top""; registered user credentials.","1. Open /products, search ""top"" and add the first two results to the cart.
+2. Open the cart and verify the products.
+3. Log in with the registered user.
+4. Open the cart again.","The products added before login are still in the cart after login.","Automated","tests/ui/cart.spec.ts","No","Yes","18-11-2026"
+"TC22","Cart","Cart","Positive","add a product from the recommended items","P2 - Medium","Browser open, user not logged in, empty cart.","First recommended product.","1. Open the home page and scroll to ""Recommended items"".
+2. Click ""Add to cart"" of a recommended product.
+3. Click ""View Cart"".","The recommended product is in the cart.","Automated","tests/ui/cart.spec.ts","No","Yes","18-11-2026"
+"TC22b","Cart","Session","Positive","logged-in header is shown on the products page","P3 - Low","A saved login session (storageState) exists.","Stored cookies of the shared user.","1. Open /products with the saved session.","""Logged in as <shared user>"" is shown on the products page.","Automated","tests/ui/cart.spec.ts","No","Yes","18-11-2026"

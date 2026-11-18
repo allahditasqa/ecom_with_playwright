@@ -1,0 +1,26 @@
+﻿"Test Case ID","Module","Feature","Test Case Title","Priority","Test Type","Preconditions","Test Steps","Test Data","Expected Result","Automation Status","Automation Script","Execution Status","Actual Result","Duration (s)","Executed On","Environment","Remarks"
+"TC06","Contact","Contact us","contact us form with file upload","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open /contact_us and verify ""Get In Touch"" is visible.
+2. Enter name, e-mail, subject and message.
+3. Upload a file.
+4. Click ""Submit"" and accept the confirmation dialog.
+5. Verify the success message and click ""Home"".","Name ""QA Tester"", e-mail qa.tester@example.com, text file attachment.","""Success! Your details have been submitted successfully."" is shown; Home opens the home page.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","4.1","2026-11-18 09:54:01","automationexercise.com / Chromium",""
+"TC06b","Contact","Contact us","contact form blocks an invalid e-mail","P3 - Low","Validation","Browser open, user not logged in, empty cart.","1. Open /contact_us.
+2. Fill all fields with the e-mail ""broken-email"" and click ""Submit"".","Malformed e-mail.","Browser validation blocks the submit; no success message appears.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","3.9","2026-11-18 09:54:05","automationexercise.com / Chromium",""
+"TC06c","Contact","Contact us","contact form blocks a submit without an e-mail","P3 - Low","Validation","Browser open, user not logged in, empty cart.","1. Open /contact_us.
+2. Click ""Submit"" with all fields empty.","All fields empty.","The mandatory e-mail field blocks the submit; no success message appears.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","2.8","2026-11-18 09:54:09","automationexercise.com / Chromium",""
+"TC07","Contact","Navigation","test cases page is reachable from the header","P3 - Low","Positive","Browser open, user not logged in, empty cart.","1. Open the home page.
+2. Click ""Test Cases"" in the header.","-","The /test_cases page opens with the heading ""Test Cases"".","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","4.8","2026-11-18 09:54:12","automationexercise.com / Chromium",""
+"TC25","Contact","Scrolling","scroll up using the arrow button","P3 - Low","Positive","Browser open, user not logged in, empty cart.","1. Open the home page and scroll to the bottom.
+2. Verify ""SUBSCRIPTION"" is visible.
+3. Click the scroll-up arrow.","-","The page scrolls to the top and the slider text ""Full-Fledged practice website for Automation Engineers"" is visible.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","3.4","2026-11-18 09:54:16","automationexercise.com / Chromium",""
+"TC26","Contact","Scrolling","scroll up without the arrow button","P3 - Low","Positive","Browser open, user not logged in, empty cart.","1. Open the home page and scroll to the bottom.
+2. Verify ""SUBSCRIPTION"" is visible.
+3. Scroll up without using the arrow.","-","The page is at the top and the slider text is visible.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","3.2","2026-11-18 09:54:17","automationexercise.com / Chromium",""
+"TC26.1","Contact","Navigation","header link ""Products"" navigates correctly","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open the home page.
+2. Click one header link (Products, Cart, Signup / Login or Contact us).","Header link ""Products"".","The /products page opens.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","5.2","2026-11-18 09:54:20","automationexercise.com / Chromium",""
+"TC26.2","Contact","Navigation","header link ""Cart"" navigates correctly","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open the home page.
+2. Click one header link (Products, Cart, Signup / Login or Contact us).","Header link ""Cart"".","The /view_cart page opens.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","4.4","2026-11-18 09:54:20","automationexercise.com / Chromium",""
+"TC26.3","Contact","Navigation","header link ""Signup / Login"" navigates correctly","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open the home page.
+2. Click one header link (Products, Cart, Signup / Login or Contact us).","Header link ""Signup / Login"".","The /login page opens.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","3.3","2026-11-18 09:54:24","automationexercise.com / Chromium",""
+"TC26.4","Contact","Navigation","header link ""Contact us"" navigates correctly","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open the home page.
+2. Click one header link (Products, Cart, Signup / Login or Contact us).","Header link ""Contact us"".","The /contact_us page opens.","Automated","contactAndNavigation.spec.ts > Contact us & navigation","Pass","As expected","2.7","2026-11-18 09:54:25","automationexercise.com / Chromium",""

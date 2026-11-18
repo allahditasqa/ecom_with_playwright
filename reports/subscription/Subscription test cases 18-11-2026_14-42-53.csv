@@ -1,0 +1,10 @@
+﻿"Test Case ID","Module","Feature","Test Case Title","Priority","Test Type","Preconditions","Test Steps","Test Data","Expected Result","Automation Status","Automation Script","Execution Status","Actual Result","Duration (s)","Executed On","Environment","Remarks"
+"TC10","Subscription","Subscription","subscribe from the home page footer","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open the home page and scroll to the footer.
+2. Verify ""SUBSCRIPTION"".
+3. Enter an e-mail and click the arrow button.","subscriber@example.com","""You have been successfully subscribed!"" is shown.","Automated","subscription.spec.ts > Newsletter subscription","Pass","As expected","2.8","2026-11-18 09:46:19","automationexercise.com / Chromium",""
+"TC11","Subscription","Subscription","subscribe from the cart page footer","P2 - Medium","Positive","Browser open, user not logged in, empty cart.","1. Open /view_cart and scroll to the footer.
+2. Enter an e-mail and click the arrow button.","subscriber@example.com","""You have been successfully subscribed!"" is shown.","Automated","subscription.spec.ts > Newsletter subscription","Pass","As expected","1.8","2026-11-18 09:46:22","automationexercise.com / Chromium",""
+"TC11b","Subscription","Subscription","subscription rejects a malformed e-mail","P3 - Low","Validation","Browser open, user not logged in, empty cart.","1. Open the home page, scroll to the footer.
+2. Enter ""no-at-sign"" and click the arrow button.","Malformed e-mail.","Browser validation blocks the submit; no success message.","Automated","subscription.spec.ts > Newsletter subscription","Pass","As expected","2.2","2026-11-18 09:46:22","automationexercise.com / Chromium",""
+"TC11c","Subscription","Subscription","subscription rejects an empty e-mail","P3 - Low","Validation","Browser open, user not logged in, empty cart.","1. Open the home page, scroll to the footer.
+2. Click the arrow button with an empty e-mail.","Empty e-mail.","The submit is blocked; no success message.","Automated","subscription.spec.ts > Newsletter subscription","Pass","As expected","2.8","2026-11-18 09:46:23","automationexercise.com / Chromium",""

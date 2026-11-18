@@ -1,0 +1,10 @@
+﻿"ID","Module","Feature","Type","Title","Priority","Preconditions","Test Data","Steps","Expected Result","Automation","Automation Script","Smoke","Regression","Last Updated"
+"DEF-02","Defects","Contact us","Defect","contact form must not accept an empty name, subject and message","P3 - Low","Browser open, user not logged in, empty cart.","Only e-mail filled.","1. Open /contact_us.
+2. Enter only an e-mail; leave name, subject and message empty.
+3. Click ""Submit"" and accept the dialog.","CORRECT behaviour: the form should reject empty name/subject/message. Actual: it is accepted (known defect DEF-02, marked test.fail).","Automated","tests/ui/defects.spec.ts","No","No","18-11-2026"
+"DEF-03.1","Defects","Cart","Defect","quantity 0 must not be accepted into the cart","P1 - High","Browser open, user not logged in, empty cart.","Quantity 0.","1. Open /product_details/1.
+2. Set the quantity to 0 (or -3).
+3. Click ""Add to cart"" and open the cart.","CORRECT behaviour: quantities below 1 must be rejected. Actual: the line is added (known defect DEF-03, marked test.fail).","Automated","tests/ui/defects.spec.ts","No","No","18-11-2026"
+"DEF-03.2","Defects","Cart","Defect","quantity -3 must not be accepted into the cart","P1 - High","Browser open, user not logged in, empty cart.","Quantity -3.","1. Open /product_details/1.
+2. Set the quantity to 0 (or -3).
+3. Click ""Add to cart"" and open the cart.","CORRECT behaviour: quantities below 1 must be rejected. Actual: the line is added (known defect DEF-03, marked test.fail).","Automated","tests/ui/defects.spec.ts","No","No","18-11-2026"

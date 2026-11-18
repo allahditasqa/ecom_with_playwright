@@ -41,8 +41,12 @@ export class ProductsPage extends BasePage {
     const name = (await card.locator('.productinfo p').innerText()).trim();
     const price = (await card.locator('.productinfo h2').innerText()).trim();
     await card.scrollIntoViewIfNeeded();
+    // Wait for all page scripts: a click before the jQuery handler is attached sends nothing.
+    // The click is never repeated (a slow request would then add the product twice).
+    await this.page.waitForLoadState('load');
     await card.hover();
     await card.locator('.overlay-content a.add-to-cart').click();
+    await this.cartModal.message.waitFor({ timeout: 25_000 });
     return { name, price };
   }
 

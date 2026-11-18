@@ -1,0 +1,10 @@
+﻿"ID","Module","Feature","Type","Title","Priority","Preconditions","Test Data","Steps","Expected Result","Automation","Automation Script","Smoke","Regression","Last Updated"
+"TC10","Subscription","Subscription","Positive","subscribe from the home page footer","P2 - Medium","Browser open, user not logged in, empty cart.","subscriber@example.com","1. Open the home page and scroll to the footer.
+2. Verify ""SUBSCRIPTION"".
+3. Enter an e-mail and click the arrow button.","""You have been successfully subscribed!"" is shown.","Automated","tests/ui/subscription.spec.ts","Yes","Yes","18-11-2026"
+"TC11","Subscription","Subscription","Positive","subscribe from the cart page footer","P2 - Medium","Browser open, user not logged in, empty cart.","subscriber@example.com","1. Open /view_cart and scroll to the footer.
+2. Enter an e-mail and click the arrow button.","""You have been successfully subscribed!"" is shown.","Automated","tests/ui/subscription.spec.ts","No","Yes","18-11-2026"
+"TC11b","Subscription","Subscription","Validation","subscription rejects a malformed e-mail","P3 - Low","Browser open, user not logged in, empty cart.","Malformed e-mail.","1. Open the home page, scroll to the footer.
+2. Enter ""no-at-sign"" and click the arrow button.","Browser validation blocks the submit; no success message.","Automated","tests/ui/subscription.spec.ts","No","Yes","18-11-2026"
+"TC11c","Subscription","Subscription","Validation","subscription rejects an empty e-mail","P3 - Low","Browser open, user not logged in, empty cart.","Empty e-mail.","1. Open the home page, scroll to the footer.
+2. Click the arrow button with an empty e-mail.","The submit is blocked; no success message.","Automated","tests/ui/subscription.spec.ts","No","Yes","18-11-2026"

@@ -18,15 +18,18 @@ test.describe('UI - known defects', { tag: ['@ui', '@defect'] }, () => {
     await expect(contactUsPage.success).toBeHidden();
   });
 
-  for (const qty of [0, -3]) {
-    test(`DEF-03 - quantity ${qty} must not be accepted into the cart`, async ({
+  for (const [n, qty] of [
+    [1, 0],
+    [2, -3],
+  ] as const) {
+    test(`DEF-03.${n} - quantity ${qty} must not be accepted into the cart`, async ({
       productDetailPage,
       cartPage,
     }) => {
       test.fail(true, 'DEF-03: min=1 is only a client-side hint, cart accepts 0 / negative quantities');
       await productDetailPage.open();
       await productDetailPage.setQuantity(qty);
-      await productDetailPage.addToCartButton.click();
+      await productDetailPage.addToCart();
       await expect(productDetailPage.cartModal.message).toBeVisible(); // the AJAX call has finished
       await cartPage.open();
       await expect(cartPage.rows).toHaveCount(0);

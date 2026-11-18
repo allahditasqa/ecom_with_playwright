@@ -14,5 +14,5 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["src", "tests", "reporters", "playwright.config.ts", "eslint.config.mjs"]
+  "include": ["src", "tests", "reporters", "scripts", "playwright.config.ts", "eslint.config.mjs"]
 }

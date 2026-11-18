@@ -25,7 +25,10 @@ test.describe('Products', { tag: ['@ui', '@regression'] }, () => {
     [2, 'Men Tshirt', 'H&M'],
     [3, 'Sleeveless Dress', 'Madame'],
   ] as const) {
-    test(`TC08b - product ${id} detail shows ${name} / ${brand}`, async ({ page, productDetailPage }) => {
+    test(`TC08.${id} - product ${id} detail shows ${name} / ${brand}`, async ({
+      page,
+      productDetailPage,
+    }) => {
       await page.goto(`/product_details/${id}`);
       await expect(productDetailPage.name).toHaveText(name);
       await expect(productDetailPage.brand).toContainText(brand);

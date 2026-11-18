@@ -85,6 +85,12 @@ export class ApiClient {
   /** Fast data set-up: creates the account and fails loudly if the site refuses. */
   async createAccountOrThrow(u: User): Promise<void> {
     const { body } = await this.createAccount(u);
+    if (body.responseCode === 400 && body.message === 'Email already exists!') {
+      // Our own retry after a slow response may have created the account already. The password is
+      // random per user, so a successful login proves the existing account is the one we created.
+      const login = await this.verifyLogin({ email: u.email, password: u.password });
+      if (login.body.responseCode === 200) return;
+    }
     expect(body.responseCode, `createAccount: ${body.message}`).toBe(201);
   }
 

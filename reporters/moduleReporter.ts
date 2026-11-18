@@ -1,6 +1,9 @@
+/* eslint-disable no-console */
 import type { FullResult, Reporter, TestCase, TestResult } from '@playwright/test/reporter';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
+import { CATALOG, type CaseSpec } from './testCaseCatalog';
+import { moduleBySlug } from './modules';
 
 /**
  * Custom reporter: one HTML report per MODULE per RUN, with the executed test cases, status,
@@ -26,6 +29,8 @@ interface Row {
   error: string;
   screenshot: string; // data URI or ''
   tags: string[];
+  spec: CaseSpec | undefined;
+  executedAt: string;
 }
 
 interface HistoryEntry {
@@ -101,6 +106,8 @@ class ModuleReporter implements Reporter {
         status === 'failed' ? stripAnsi(result.error?.message ?? 'Unexpected result').slice(0, 1500) : '',
       screenshot,
       tags: test.tags,
+      spec: CATALOG[id],
+      executedAt: result.startTime.toISOString().replace('T', ' ').slice(0, 19),
     };
     const list = this.rows.get(mod) ?? [];
     list.push(row);
@@ -116,25 +123,28 @@ class ModuleReporter implements Reporter {
       : [];
     const d = this.start;
     const date = `${pad(d.getDate())}-${pad(d.getMonth() + 1)}-${d.getFullYear()}`;
-    const stamp = `${date}_${pad(d.getHours())}-${pad(d.getMinutes())}`;
-    const time = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    const stamp = `${date}_${pad(d.getHours())}-${pad(d.getMinutes())}-${pad(d.getSeconds())}`;
+    const time = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 
     for (const [mod, rows] of [...this.rows.entries()].sort()) {
       rows.sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true }));
       const dir = join(ROOT, mod);
       mkdirSync(dir, { recursive: true });
-      // never overwrite: add seconds, then a counter, when the minute-stamp is already taken
-      let name = `${mod} test ${stamp}`;
-      if (existsSync(join(dir, `${name}.html`))) name = `${mod} test ${stamp}-${pad(d.getSeconds())}`;
-      for (let i = 2; existsSync(join(dir, `${name}.html`)); i++)
-        name = `${mod} test ${stamp}-${pad(d.getSeconds())}-${i}`;
+      const display = moduleBySlug(mod)?.name ?? cap(mod);
+      // <Module Name> test <DD-MM-YYYY>_<HH-mm-ss>.html ; never overwrite (counter if the second is taken)
+      let name = `${display} test ${stamp}`;
+      let csvName = `${display} test cases ${stamp}`;
+      for (let i = 2; existsSync(join(dir, `${name}.html`)); i++) {
+        name = `${display} test ${stamp}-${i}`;
+        csvName = `${display} test cases ${stamp}-${i}`;
+      }
 
       const durationSec = Math.round(rows.reduce((s, r) => s + r.durationMs, 0) / 1000);
       const count = (s: Row['status']) => rows.filter((r) => r.status === s).length;
       const entry: HistoryEntry = {
         module: mod,
         file: `${mod}/${name}.html`,
-        csv: `${mod}/${name}.csv`,
+        csv: `${mod}/${csvName}.csv`,
         ts: d.toISOString(),
         date,
         time,
@@ -145,12 +155,11 @@ class ModuleReporter implements Reporter {
         durationSec,
       };
       writeFileSync(join(dir, `${name}.html`), moduleHtml(entry, rows, result.status));
-      writeFileSync(join(dir, `${name}.csv`), csv(rows));
+      writeFileSync(join(dir, `${csvName}.csv`), csv(rows, display));
       history.push(entry);
     }
     writeFileSync(historyFile, JSON.stringify(history, null, 2));
     writeFileSync(join(ROOT, 'index.html'), indexHtml(history));
-    // eslint-disable-next-line no-console
     console.log(`\nModule reports written to ${ROOT}/ (open ${ROOT}/index.html)`);
   }
 }
@@ -178,15 +187,16 @@ function moduleHtml(e: HistoryEntry, rows: Row[], overall: string): string {
   <div class="head"><span class="badge ${cls}">${r.status}</span><b>${esc(r.title)}</b>
   <span class="meta">${esc(r.file)} › ${esc(r.describe)} · ${(r.durationMs / 1000).toFixed(1)}s${r.tags.length ? ' · ' + esc(r.tags.join(' ')) : ''}</span></div>
   ${r.note ? `<div class="note">${esc(r.note)}</div>` : ''}
+  ${r.spec ? specHtml(r.spec) : ''}
   ${r.error ? `<pre>${esc(r.error)}</pre>` : ''}
   ${r.screenshot ? `<div class="shots"><figure><img src="${r.screenshot}" alt="screenshot" onclick="this.classList.toggle('big')"><figcaption>screenshot</figcaption></figure></div>` : '<p class="meta">No screenshot (test was skipped)</p>'}
 </section>`;
     })
     .join('\n');
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${cap(e.module)} Test Report ${e.date} ${e.time}</title><style>${CSS}</style></head><body><main>
+<title>${moduleBySlug(e.module)?.name ?? cap(e.module)} Test Report ${e.date} ${e.time}</title><style>${CSS}</style></head><body><main>
 <p class="meta"><a href="../index.html">&larr; All reports</a></p>
-<h1>${cap(e.module)}</h1>
+<h1>${moduleBySlug(e.module)?.name ?? cap(e.module)}</h1>
 <div class="meta">Run: ${e.date} ${e.time} · test time ${e.durationSec}s · overall: ${e.failed ? 'failed' : overall === 'interrupted' ? 'interrupted' : 'passed'} · click a screenshot to enlarge</div>
 <div class="sum"><div><b>${e.total}</b>total</div><div><b class="pass-t">${e.passed}</b>passed</div><div><b class="fail-t">${e.failed}</b>failed</div><div><b class="skip-t">${e.skipped}</b>skipped</div></div>
 ${cards}
@@ -194,12 +204,71 @@ ${cards}
 `;
 }
 
-function csv(rows: Row[]): string {
-  const q = (s: string) => `"${s.replace(/"/g, '""')}"`;
-  const lines = rows.map((r) =>
-    [r.id, r.title, r.describe, r.status, (r.durationMs / 1000).toFixed(1), r.note, r.error].map(q).join(','),
-  );
-  return ['ID,Title,Group,Status,Duration (s),Note,Error', ...lines].join('\n') + '\n';
+function specHtml(c: CaseSpec): string {
+  return `<details><summary class="meta">Test case: ${esc(c.feature)} · ${esc(c.priority)} · ${esc(c.type)}</summary>
+  <p class="meta"><b>Precondition:</b> ${esc(c.pre)}</p>
+  <ol class="meta">${c.steps.map((st) => `<li>${esc(st)}</li>`).join('')}</ol>
+  <p class="meta"><b>Test data:</b> ${esc(c.data)}</p>
+  <p class="meta"><b>Expected result:</b> ${esc(c.expected)}</p></details>`;
+}
+
+const NL = '\n';
+
+function csv(rows: Row[], module: string): string {
+  const q = (v: string) => `"${v.replace(/"/g, '""')}"`;
+  const header = [
+    'Test Case ID',
+    'Module',
+    'Feature',
+    'Test Case Title',
+    'Priority',
+    'Test Type',
+    'Preconditions',
+    'Test Steps',
+    'Test Data',
+    'Expected Result',
+    'Automation Status',
+    'Automation Script',
+    'Execution Status',
+    'Actual Result',
+    'Duration (s)',
+    'Executed On',
+    'Environment',
+    'Remarks',
+  ];
+  const lines = rows.map((r) => {
+    const c = r.spec;
+    const actual =
+      r.status === 'failed'
+        ? r.error
+        : r.status === 'skipped'
+          ? 'Not executed'
+          : 'As expected' + (r.note.includes('known defect') ? ' (known defect reproduced)' : '');
+    return [
+      r.id,
+      cap(module),
+      c?.feature ?? '',
+      r.title.replace(/^[^ ]+ - /, ''),
+      c?.priority ?? '',
+      c?.type ?? '',
+      c?.pre ?? '',
+      (c?.steps ?? []).map((st, n) => `${n + 1}. ${st}`).join(NL),
+      c?.data ?? '',
+      c?.expected ?? '',
+      'Automated',
+      `${r.file} > ${r.describe}`,
+      r.status === 'passed' ? 'Pass' : r.status === 'failed' ? 'Fail' : 'Skipped',
+      actual,
+      (r.durationMs / 1000).toFixed(1),
+      r.executedAt,
+      'automationexercise.com / Chromium',
+      r.note,
+    ]
+      .map(q)
+      .join(',');
+  });
+  // UTF-8 BOM so that Excel opens the file with the right encoding
+  return '\uFEFF' + [header.map(q).join(','), ...lines].join('\r\n') + '\r\n';
 }
 
 function indexHtml(history: HistoryEntry[]): string {
@@ -215,7 +284,7 @@ function indexHtml(history: HistoryEntry[]): string {
       const rowsHtml = items
         .map((h) => {
           const result = h.failed ? '<td class="fail-t">Failed</td>' : '<td class="pass-t">Passed</td>';
-          return `<tr><td>${cap(h.module)}</td><td><a href="${encodeURI(h.file)}">${h.date} ${h.time}</a></td><td>${h.total}</td><td class="pass-t">${h.passed}</td><td class="${h.failed ? 'fail-t' : ''}">${h.failed}</td><td class="skip-t">${h.skipped}</td><td>${h.durationSec}s</td>${result}<td><a href="${encodeURI(h.csv)}">CSV</a></td></tr>`;
+          return `<tr><td>${moduleBySlug(h.module)?.name ?? cap(h.module)}</td><td><a href="${encodeURI(h.file)}">${h.date} ${h.time}</a></td><td>${h.total}</td><td class="pass-t">${h.passed}</td><td class="${h.failed ? 'fail-t' : ''}">${h.failed}</td><td class="skip-t">${h.skipped}</td><td>${h.durationSec}s</td>${result}<td><a href="${encodeURI(h.csv)}">CSV</a></td></tr>`;
         })
         .join('\n');
       return `<h2>${key} <span class="meta">&nbsp;total ${sum((h) => h.total)} · <span class="pass-t">${sum((h) => h.passed)} pass</span> · <span class="${sum((h) => h.failed) ? 'fail-t' : ''}">${sum((h) => h.failed)} fail</span> · <span class="skip-t">${sum((h) => h.skipped)} skip</span></span></h2>

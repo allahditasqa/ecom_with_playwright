@@ -7,4 +7,3 @@ blob-report/
 tmp/
 *.log
 .DS_Store
-reports/

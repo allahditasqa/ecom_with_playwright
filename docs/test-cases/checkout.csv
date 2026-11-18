@@ -1,0 +1,26 @@
+﻿"ID","Module","Feature","Type","Title","Priority","Preconditions","Test Data","Steps","Expected Result","Automation","Automation Script","Smoke","Regression","Last Updated"
+"TC14","Checkout","Checkout","Positive","place an order: register while checking out","P0 - Critical","Browser open, user not logged in, empty cart.","Generated user; test card 4111 1111 1111 1111, CVC 123, expiry 12/2030.","1. Add a product to the cart and open the cart.
+2. Click ""Proceed To Checkout"" and then ""Register / Login"" in the pop-up.
+3. Register a new account and click ""Continue"".
+4. Open the cart, click ""Proceed To Checkout"", enter a comment and click ""Place Order"".
+5. Enter card details and click ""Pay and Confirm Order"".
+6. Verify the order confirmation and delete the account.","The order is placed and ""Congratulations! Your order has been confirmed!"" is shown; the account is deleted.","Automated","tests/ui/checkout.spec.ts","Yes","Yes","18-11-2026"
+"TC15","Checkout","Checkout","Positive","place an order: register before checkout","P1 - High","Browser open, user not logged in, empty cart.","Generated user; test card.","1. Register a new account through the UI and verify the user is logged in.
+2. Add a product to the cart, open the cart and proceed to checkout.
+3. Click ""Place Order"" and pay with the test card.","""ORDER PLACED!"" is shown.","Automated","tests/ui/checkout.spec.ts","No","Yes","18-11-2026"
+"TC16","Checkout","Checkout","Positive","place an order: login before checkout","P0 - Critical","A registered user is logged in.","Registered user; test card.","1. Add a product to the cart and open the cart.
+2. Click ""Proceed To Checkout"" and verify the order review.
+3. Click ""Place Order"" and pay with the test card.","""ORDER PLACED!"" and ""Congratulations! Your order has been confirmed!"" are shown.","Automated","tests/ui/checkout.spec.ts","Yes","Yes","18-11-2026"
+"TC23","Checkout","Checkout","Positive","delivery and billing address match the registration details","P1 - High","A registered user is logged in.","Registration data of the user.","1. Add a product to the cart and proceed to checkout.
+2. Compare the delivery and billing address with the registration data.","Both addresses contain name, company, address lines, city/state/zip, country and phone exactly as registered.","Automated","tests/ui/checkout.spec.ts","No","Yes","18-11-2026"
+"TC23b","Checkout","Checkout","Positive","order review lists the products and the correct total","P1 - High","A registered user is logged in.","Two products.","1. Add ""Blue Top"" (Rs. 500) and ""Men Tshirt"" (Rs. 400) to the cart.
+2. Proceed to checkout.","The order review lists both products and the total is Rs. 900.","Automated","tests/ui/checkout.spec.ts","No","Yes","18-11-2026"
+"TC24","Checkout","Checkout","Positive","download the invoice after the order","P2 - Medium","A registered user is logged in.","One product (Rs. 500); test card.","1. Place an order with one product.
+2. On the confirmation page click ""Download Invoice"".
+3. Open the downloaded file.
+4. Click ""Continue"".","An invoice file is downloaded containing the customer name and amount 500; Continue opens the home page.","Automated","tests/ui/checkout.spec.ts","No","Yes","18-11-2026"
+"TC24b","Checkout","Checkout","Negative","guest is asked to register or login when checking out","P1 - High","Browser open, user not logged in, empty cart.","-","1. Add a product to the cart as a guest.
+2. Click ""Proceed To Checkout"".
+3. Click ""Register / Login"" in the pop-up.","A pop-up asks the guest to register or log in; the link opens /login.","Automated","tests/ui/checkout.spec.ts","No","Yes","18-11-2026"
+"TC24c","Checkout","Checkout","Validation","payment form blocks an empty submit","P2 - Medium","A registered user is logged in.","Empty payment form.","1. Add a product, proceed to checkout, click ""Place Order"".
+2. Click ""Pay and Confirm Order"" with empty card fields.","Browser validation blocks the payment; the user stays on /payment and no order is placed.","Automated","tests/ui/checkout.spec.ts","No","Yes","18-11-2026"

@@ -1,0 +1,36 @@
+﻿"Test Case ID","Module","Feature","Test Case Title","Priority","Test Type","Preconditions","Test Steps","Test Data","Expected Result","Automation Status","Automation Script","Execution Status","Actual Result","Duration (s)","Executed On","Environment","Remarks"
+"TC01","Auth","Registration","register a new user and delete the account","P0 - Critical","Positive","Browser open, user not logged in, empty cart.","1. Open the home page and verify it is visible.
+2. Click ""Signup / Login"" and verify ""New User Signup!"" is visible.
+3. Enter a unique name and e-mail and click ""Signup"".
+4. Fill every field of ""Enter Account Information"" and click ""Create Account"".
+5. Verify ""ACCOUNT CREATED!"" and click ""Continue"".
+6. Verify ""Logged in as <name>"" in the header.
+7. Click ""Delete Account"" and verify ""ACCOUNT DELETED!"".","Generated unique user (name, e-mail, random password, DOB, address, phone).","Account is created, user is logged in with the correct name, and the account can be deleted.","Automated","auth.spec.ts > Authentication","Pass","As expected","15.5","2026-11-18 10:02:50","automationexercise.com / Chromium",""
+"TC02","Auth","Login","login with correct email and password","P0 - Critical","Positive","A registered user exists (created through the API with a unique e-mail).","1. Open /login and verify ""Login to your account"" is visible.
+2. Enter the registered e-mail and password and click ""Login"".","Valid e-mail + valid password of the registered user.","""Logged in as <name>"" and ""Logout"" are shown; ""Signup / Login"" is no longer in the header.","Automated","auth.spec.ts > Authentication","Fail","Error: expect(locator).toHaveText(expected) failed
+
+Locator: locator('header').getByText('Logged in as').locator('b')
+Expected: ""QA mwlydtced44c7b""
+Timeout: 15000ms
+Error: element(s) not found
+
+Call log:
+  - Expect ""toHaveText"" locator('header').getByText('Logged in as').locator('b') with timeout 15000ms
+  - waiting for locator('header').getByText('Logged in as').locator('b')
+","21.6","2026-11-18 10:03:06","automationexercise.com / Chromium",""
+"TC03","Auth","Login","login with incorrect password shows an error","P0 - Critical","Negative","A registered user exists (created through the API with a unique e-mail).","1. Open /login.
+2. Enter the registered e-mail with a wrong password and click ""Login"".","Valid e-mail + incorrect password.","Error ""Your email or password is incorrect!"" is shown and the user stays logged out.","Automated","auth.spec.ts > Authentication","Pass","As expected","3.6","2026-11-18 10:03:28","automationexercise.com / Chromium",""
+"TC03b","Auth","Login","login with an unknown e-mail shows an error","P1 - High","Negative","Browser open, user not logged in, empty cart.","1. Open /login.
+2. Enter an e-mail that is not registered and any password, click ""Login"".","Unregistered e-mail + arbitrary password.","Error ""Your email or password is incorrect!"" is shown.","Automated","auth.spec.ts > Authentication","Pass","As expected","2.1","2026-11-18 10:03:32","automationexercise.com / Chromium",""
+"TC04","Auth","Logout","logout returns the visitor to the login page","P0 - Critical","Positive","A registered user is logged in.","1. Click ""Logout"" in the header.","-","User is redirected to /login, the login form is shown and ""Logged in as"" is gone.","Automated","auth.spec.ts > Authentication","Pass","As expected","8.7","2026-11-18 10:03:34","automationexercise.com / Chromium",""
+"TC05","Auth","Registration","register with an existing e-mail is rejected","P1 - High","Negative","A registered user exists (created through the API with a unique e-mail).","1. Open /login.
+2. In ""New User Signup!"" enter any name and the e-mail of the existing user, click ""Signup"".","E-mail that already exists.","Error ""Email Address already exist!"" is shown; no second account is created.","Automated","auth.spec.ts > Authentication","Pass","As expected","3.2","2026-11-18 10:03:43","automationexercise.com / Chromium",""
+"TC05b","Auth","Login","the password is case sensitive","P2 - Medium","Negative","A registered user exists (created through the API with a unique e-mail).","1. Open /login.
+2. Enter the correct e-mail with the password in UPPER CASE and click ""Login"".","Password with changed letter case.","Login is rejected with an error: the password is case sensitive.","Automated","auth.spec.ts > Authentication","Pass","As expected","2.9","2026-11-18 10:03:46","automationexercise.com / Chromium",""
+"TC05c","Auth","Login","empty login form is blocked by browser validation","P2 - Medium","Validation","Browser open, user not logged in, empty cart.","1. Open /login.
+2. Click ""Login"" with both fields empty.","Empty e-mail and password.","Browser validation blocks the submit (required field); the page does not change.","Automated","auth.spec.ts > Authentication","Pass","As expected","1.8","2026-11-18 10:03:49","automationexercise.com / Chromium",""
+"TC05d","Auth","Registration","signup with a malformed e-mail is blocked by browser validation","P2 - Medium","Validation","Browser open, user not logged in, empty cart.","1. Open /login.
+2. In the signup form enter a name and the e-mail ""not-an-email"", click ""Signup"".","Malformed e-mail ""not-an-email"".","Browser validation reports an invalid e-mail; the signup page is not opened.","Automated","auth.spec.ts > Authentication","Pass","As expected","1.7","2026-11-18 10:03:51","automationexercise.com / Chromium",""
+"TC05e","Auth","Registration","signup with an empty name is blocked by browser validation","P2 - Medium","Validation","Browser open, user not logged in, empty cart.","1. Open /login.
+2. In the signup form leave the name empty, enter a valid e-mail, click ""Signup"".","Empty name, valid e-mail.","Browser validation reports the required name; the signup page is not opened.","Automated","auth.spec.ts > Authentication","Pass","As expected","2.2","2026-11-18 10:03:53","automationexercise.com / Chromium",""
+"TC05f","Auth","Session","a saved session opens the site already logged in","P2 - Medium","Positive","A saved login session (storageState) of the shared user exists.","1. Open the home page with the saved session.","Stored cookies of the shared user.","The site opens already logged in: ""Logged in as <shared user>"" and ""Logout"" are visible.","Automated","auth.spec.ts > Reused login session (storageState)","Pass","As expected","2.3","2026-11-18 10:03:55","automationexercise.com / Chromium",""

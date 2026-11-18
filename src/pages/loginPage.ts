@@ -45,8 +45,16 @@ export class LoginPage extends BasePage {
 
   /** Full UI login; returns once the header shows the user as logged in. */
   async loginAs(user: Pick<User, 'email' | 'password'>): Promise<void> {
-    await this.open();
-    await this.login(user.email, user.password);
-    await this.header.loggedInAs.waitFor();
+    // One retry: right after API account creation the shared site occasionally rejects the first login.
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      await this.open();
+      await this.login(user.email, user.password);
+      try {
+        await this.header.loggedInAs.waitFor({ timeout: 10_000 });
+        return;
+      } catch (error) {
+        if (attempt === 2) throw error;
+      }
+    }
   }
 }

@@ -1,0 +1,26 @@
+﻿"Test Case ID","Module","Feature","Test Case Title","Priority","Test Type","Preconditions","Test Steps","Test Data","Expected Result","Automation Status","Automation Script","Execution Status","Actual Result","Duration (s)","Executed On","Environment","Remarks"
+"TC14","Checkout","Checkout","place an order: register while checking out","P0 - Critical","Positive","Browser open, user not logged in, empty cart.","1. Add a product to the cart and open the cart.
+2. Click ""Proceed To Checkout"" and then ""Register / Login"" in the pop-up.
+3. Register a new account and click ""Continue"".
+4. Open the cart, click ""Proceed To Checkout"", enter a comment and click ""Place Order"".
+5. Enter card details and click ""Pay and Confirm Order"".
+6. Verify the order confirmation and delete the account.","Generated user; test card 4111 1111 1111 1111, CVC 123, expiry 12/2030.","The order is placed and ""Congratulations! Your order has been confirmed!"" is shown; the account is deleted.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","17.8","2026-11-18 09:43:52","automationexercise.com / Chromium",""
+"TC15","Checkout","Checkout","place an order: register before checkout","P1 - High","Positive","Browser open, user not logged in, empty cart.","1. Register a new account through the UI and verify the user is logged in.
+2. Add a product to the cart, open the cart and proceed to checkout.
+3. Click ""Place Order"" and pay with the test card.","Generated user; test card.","""ORDER PLACED!"" is shown.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","16.6","2026-11-18 09:44:00","automationexercise.com / Chromium",""
+"TC16","Checkout","Checkout","place an order: login before checkout","P0 - Critical","Positive","A registered user is logged in.","1. Add a product to the cart and open the cart.
+2. Click ""Proceed To Checkout"" and verify the order review.
+3. Click ""Place Order"" and pay with the test card.","Registered user; test card.","""ORDER PLACED!"" and ""Congratulations! Your order has been confirmed!"" are shown.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","14.9","2026-11-18 09:44:09","automationexercise.com / Chromium",""
+"TC23","Checkout","Checkout","delivery and billing address match the registration details","P1 - High","Positive","A registered user is logged in.","1. Add a product to the cart and proceed to checkout.
+2. Compare the delivery and billing address with the registration data.","Registration data of the user.","Both addresses contain name, company, address lines, city/state/zip, country and phone exactly as registered.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","11.5","2026-11-18 09:44:17","automationexercise.com / Chromium",""
+"TC23b","Checkout","Checkout","order review lists the products and the correct total","P1 - High","Positive","A registered user is logged in.","1. Add ""Blue Top"" (Rs. 500) and ""Men Tshirt"" (Rs. 400) to the cart.
+2. Proceed to checkout.","Two products.","The order review lists both products and the total is Rs. 900.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","14.0","2026-11-18 09:44:24","automationexercise.com / Chromium",""
+"TC24","Checkout","Checkout","download the invoice after the order","P2 - Medium","Positive","A registered user is logged in.","1. Place an order with one product.
+2. On the confirmation page click ""Download Invoice"".
+3. Open the downloaded file.
+4. Click ""Continue"".","One product (Rs. 500); test card.","An invoice file is downloaded containing the customer name and amount 500; Continue opens the home page.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","18.2","2026-11-18 09:44:28","automationexercise.com / Chromium",""
+"TC24b","Checkout","Checkout","guest is asked to register or login when checking out","P1 - High","Negative","Browser open, user not logged in, empty cart.","1. Add a product to the cart as a guest.
+2. Click ""Proceed To Checkout"".
+3. Click ""Register / Login"" in the pop-up.","-","A pop-up asks the guest to register or log in; the link opens /login.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","8.3","2026-11-18 09:44:38","automationexercise.com / Chromium",""
+"TC24c","Checkout","Checkout","payment form blocks an empty submit","P2 - Medium","Validation","A registered user is logged in.","1. Add a product, proceed to checkout, click ""Place Order"".
+2. Click ""Pay and Confirm Order"" with empty card fields.","Empty payment form.","Browser validation blocks the payment; the user stays on /payment and no order is placed.","Automated","checkout.spec.ts > Checkout & orders","Pass","As expected","25.4","2026-11-18 09:44:47","automationexercise.com / Chromium",""

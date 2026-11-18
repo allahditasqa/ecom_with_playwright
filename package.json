@@ -26,7 +26,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run typecheck && npm run lint && npm run format:check"
+    "verify": "npm run typecheck && npm run lint && npm run format:check && npm run cases:check",
+    "cases:generate": "tsx scripts/cases.ts generate",
+    "cases:check": "tsx scripts/cases.ts check"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -37,6 +39,7 @@
     "eslint": "^10.15.0",
     "eslint-plugin-playwright": "^2.12.2",
     "prettier": "^3.10.1",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.73.0"
   }
